@@ -11,6 +11,7 @@ def search_beaches():
     beach = request.json
     
     print('Response received: ', beach)
+    return render_template('search_results.html') 
   
 
 if __name__ == '__main__':

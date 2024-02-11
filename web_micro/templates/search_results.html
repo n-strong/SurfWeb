@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beach Search</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        padding: 20px;
+    }
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .search-bar {
+        display: flex;
+        align-items: center;
+    }
+    .search-input {
+        width: 300px;
+        height: 30px;
+        padding: 5px;
+        font-size: 16px;
+    }
+    .search-button {
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    .search-button:hover {
+        background-color: #0056b3;
+    }
+    .beach-list {
+        display: flex;
+        flex-direction: column;
+    }
+    .beach-item {
+        margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <a href="index.html">Surf Web</a>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="type city & state OR beach for forecast">
+            <button class="search-button">Search</button>
+        </div>
+    </div>
+    <div class="body">
+        <div class="left">
+            <p>Select your beach:</p>
+        </div>
+        <div class="right">
+            <ul class="beach-list">
+                <!-- Beaches will be dynamically added here from backend -->
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

@@ -44,16 +44,18 @@
     }
 </style>
 </head>
-<script src="{{ url_for('static', filename='search_beaches.js') }}"></script>
 
 <body>
 <div class="container">
     <h1>Surf Web</h1>
     <h2>Surf Forecasts</h2>
-    <input type="text" placeholder="type city & state OR beach for forecast" id="search_beaches">
+    <input type="text" placeholder="type city & state OR beach for forecast" id="search">
     <br>
-    <button id="search_button" >Search</button>
+
 </div>
+<button onclick = "sendData()" >Search</button>
+<script type='text/javascript' language='javascript' src='../static/search_beaches.js'>
+</script>
 
 </body>
 </html>
