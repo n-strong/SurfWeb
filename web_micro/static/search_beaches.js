@@ -12,10 +12,11 @@ function sendData() {
         if(!response.ok) {
             throw new Error ('Error in network response.');
         }
+        window.location.href = response.url;
         return response.json();
     })
-    .then(beach => {
-        console.log('Response from server:', beach);
+    .then(data => {
+        console.log('Response from server:', data);
     })
     .catch(error => {
         console.error('Error with fetch operation:', error)
