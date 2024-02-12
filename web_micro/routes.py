@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
+import requests
 
 app = Flask(__name__)
+SURF_DATA_URL = 'http://localhost:332/get_beach_data'
 
 @app.route('/')
 def home():
@@ -9,10 +11,14 @@ def home():
 
 @app.route('/search_beaches', methods=['POST'])
 def search_beaches():
-
-    beach = request.json
-    print('Response received: ', beach)
-
+    
+    # beach = request.json()
+    beach = '5cbf8d85e7b15800014909e8' 
+    # print('Response received: ', beach)
+    response = requests.post(SURF_DATA_URL, json={'beach_to_search': beach}, verify=False)
+    test = response.json() 
+    print(jsonify(test))
+     
     return redirect('search_results')
 
 @app.route('/search_results')
