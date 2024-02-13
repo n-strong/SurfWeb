@@ -11,20 +11,28 @@ def home():
 
 @app.route('/search_beaches', methods=['POST'])
 def search_beaches():
+    spotID_dict = {'Pacifica, California': '5842041f4e65fad6a7708976'}
     
-    # beach = request.json()
-    beach = '5cbf8d85e7b15800014909e8' 
-    # print('Response received: ', beach)
-    response = requests.post(SURF_DATA_URL, json={'beach_to_search': beach}, verify=False)
-    test = response.json() 
-    print(jsonify(test))
-     
+    beach = request.json
+   
+    if beach in spotID_dict.keys():
+        spotID = spotID_dict[beach]
+    
+    global response 
+   
+    response = requests.post(SURF_DATA_URL, json={'beach_to_search': spotID})
+
+    
     return redirect('search_results')
 
 @app.route('/search_results')
 def search_results():
     return render_template('search_results.html') 
 
+@app.route('/forecast')
+def show_forecast():
+
+    return render_template('forecast.html')
 
 if __name__ == '__main__':
     app.run(port=333)  
