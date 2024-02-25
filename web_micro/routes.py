@@ -31,9 +31,9 @@ def search_results():
 
 @app.route('/forecast')
 def show_forecast():
+    surf_forecast = jsonify(response.text)
 
-    return render_template('forecast.html')
-
+    return render_template('forecast.html', surf_forecast=surf_forecast.json)
 if __name__ == '__main__':
     app.run(port=333)  
    
