@@ -47,6 +47,25 @@
     .beach-item {
         margin-bottom: 10px;
     }
+    #popup {
+        display: none;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0px 0px 10px #ccc;
+    }
+    #popup button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin-top: 10px;
+        cursor: pointer;
+    }
 </style>
 </head>
 <body>
@@ -54,24 +73,42 @@
     <div class="header">
         <button onclick="goHome()" class="home_button">Surf Web</button>
         <p> <--------Click this button to start new search! Previous search data will be lost</p>
-     
+        <form id="forecastForm">
+            <input type="email" name="email" placeholder="Enter your email to receive the forecast" required>
+            <input type="hidden" name="surf_forecast" value="{{ surf_forecast }}">
+            <button type="button" onclick="sendForecast()">Send Forecast</button>
+        </form>            
         <div class="search-bar">
             <input type="text" class="search-input" placeholder="type city & state OR beach for forecast" id="search">
             <button onclick="sendData()" class="search-button">Search</button>
         </div>
-    
-    <script type='text/javascript' language='javascript'
-    src='../static/search_beaches.js'> 
-    </script>
-    
     </div>
     <div class="body">
-        <p>
-            {{ surf_forecast }}       
-        </p>
-
+        <p>{{ surf_forecast }}</p>
     </div>
 </div>
+<div id="popup">
+    <p>Email sent successfully!</p>
+    <button onclick="dismissPopup()">Dismiss</button>
+</div>
+<script src='../static/search_beaches.js'></script>
+<script>
+function sendForecast() {
+    const formData = new FormData(document.getElementById('forecastForm'));
+    fetch('/send_forecast', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('popup').style.display = 'block';
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function dismissPopup() {
+    document.getElementById('popup').style.display = 'none';
+}
+</script>
 </body>
 </html>
-
