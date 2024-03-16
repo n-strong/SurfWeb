@@ -12,14 +12,31 @@ function sendData() {
         if(!response.ok) {
             throw new Error ('Error in network response.');
         }
+
         window.location.href = response.url;
         return response.json();
     })
     .then(data => {
         console.log('Response from server:', data);
+        displayBeaches(data.beaches);
     })
     .catch(error => {
         console.error('Error with fetch operation:', error)
+    })
+}
+
+
+// dynamically unpack beaches
+function displayBeaches(beaches){
+    const beach_container = document.getElementById('beach_container');
+    beach_container.innerHTML = '';
+
+    postMessage.forEach(beach => {
+        const beach_element = document.createElement('div');
+        beach_element.classname = 'beach'
+        beach_element.innerHTML = `<p>${beach}</p>`;
+        
+        beach_container.appendChild(beach_element);
     })
 }
 
