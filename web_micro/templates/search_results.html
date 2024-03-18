@@ -72,10 +72,19 @@
             <p>Select your beach:</p>
         </div>
         <div class="right">
-            <div id= 'beach_container'>{{ beach }}</div>
+            <form id='beach_container'>
+                
+            </form>
             <a href='#' onclick='getForecast(); return false;'>Pacifica</a>
         </div>
     </div>
+                <form action="/forecast" method="post">
+                    <label for="beach name"></label>
+            
+                    {% for item in beach %}
+                        <input type="submit" id="beach name" name="beach name" value="{{ item }}"></input>
+                    {% endfor %}
+                </form>
 </div>
 </body>
 </html>

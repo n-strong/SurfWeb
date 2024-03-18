@@ -1,5 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
+import matplotlib.pyplot as plt
 import pysurfline
+from io import BytesIO
 
 
 app = Flask(__name__)
@@ -11,19 +13,15 @@ def get_beach_data():
       
     print(beach)
     port_forecasts = pysurfline.get_spot_forecasts(
-        spotId=beach,
-        days=2,
-        intervalHours=3
+        spotId=beach
     )
    
-    port_forecasts = {str(port_forecasts.name): 
-                        [
-                        str(port_forecasts.sunlightTimes), str(port_forecasts.tides), 
-                        str(port_forecasts.weather),
-                        str(port_forecasts.wind)
-                        ]}
-    
-    return jsonify(port_forecasts)
+    output = BytesIO()
+    pysurfline.plot_surf_report(port_forecasts, barLabels=True, wind=True)
+    plt.savefig(output, format='png')
+    output.seek(0)
+
+    return send_file(output, mimetype='images/png')
 
 
 

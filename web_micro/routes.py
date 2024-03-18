@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, jsonify
 import requests
-import os
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -19,14 +18,15 @@ def search_beaches():
         
         beach = request.form.get('beach')
             
+        global spotID    
         spotID = get_spotID(beach)
+
+        beach_names = [i for i in spotID.keys()]
         
-        return render_template('search_results.html', beach_name=beach)
+        return render_template('search_results.html', beach=beach_names)
 
     else:
         redirect('/')
-
-    # return redirect('search_results')
 
 def get_spotID(location: str):
     url = 'https://services.surfline.com/search/site' 
@@ -67,10 +67,15 @@ def send_forecast():
     server.quit()
     return jsonify({'message': 'Email sent successfully!'})
 
-@app.route('/forecast')
+@app.route('/forecast', methods=['POST'])
 def show_forecast():
-    response = requests.post(SURF_DATA_URL, json={'beach_to_search': spotID}) 
-    surf_forecast = jsonify(response.text)
+    beach = request.form.get('beach name')
+    print(beach)
+
+    if beach in spotID.keys():
+        response = requests.post(SURF_DATA_URL, json={'beach_to_search': spotID.get(beach)}) 
+        surf_forecast = jsonify(response.text)
+    
     return render_template('forecast.html', surf_forecast=surf_forecast.json)
 
 if __name__ == '__main__':
