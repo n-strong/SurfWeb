@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beach Search</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        padding: 20px;
+    }
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .search-bar {
+        display: flex;
+        align-items: center;
+    }
+    .search-input {
+        width: 300px;
+        height: 30px;
+        padding: 5px;
+        font-size: 16px;
+    }
+    .search-button {
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    .search-button:hover {
+        background-color: #0056b3;
+    }
+    .beach-list {
+        display: flex;
+        flex-direction: column;
+    }
+    .beach-item {
+        margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <button onclick="goHome()" class="home_button">Surf Web</button>
+     
+        <div class="search-bar">
+            <form action="/search_beaches" method="post">
+                <label for='beach'></label>
+                <input type="text" placeholder="type city & state OR beach for forecast" id="beach" name="beach">
+                <input type="submit" value="search">
+            </form>
+        </div>
+    
+    <script type='text/javascript' language='javascript'
+    src='../static/search_beaches.js'> 
+    </script>
+    
+    </div>
+    <div class="body">
+        <div class="left">
+            <p>Select your beach:</p>
+        </div>
+        <div class="right">
+            <form id='beach_container'>
+                
+            </form>
+
+        </div>
+    </div>
+                <form action="/forecast" method="post">
+                    <label for="beach name"></label>
+            
+                    {% for item in beach %}
+                        <input type="submit" id="beach name" name="beach name" value="{{ item }}"></input>
+                    {% endfor %}
+                </form>
+</div>
+</body>
+</html>
+

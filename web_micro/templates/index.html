@@ -44,13 +44,19 @@
     }
 </style>
 </head>
+
 <body>
 <div class="container">
     <h1>Surf Web</h1>
     <h2>Surf Forecasts</h2>
-    <input type="text" placeholder="type city & state OR beach for forecast">
+    <form action="/search_beaches" method="post">
+        <label for='beach'></label>
+        <input type="text" placeholder="type city & state OR beach for forecast" id="beach" name="beach">
+        <input type="submit" value="search">
+    </form>
     <br>
-    <button>Search</button>
+<p>Surf report data can take a second to load, so please wait.</p>
 </div>
+
 </body>
 </html>
